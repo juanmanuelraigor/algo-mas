@@ -13,63 +13,95 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500;600;700&display=swap">
 <style>
 :root{
-  --night:#04060D; --night2:#0A1022; --chip:#17213F; --line:#24305A;
+  --night:#04060D; --night2:#0A1022; --chip:#17213F; --line:#24305A; --line2:#3A4E8A;
   --ink:#F7F5EF; --soft:#C9D3EA; --muted:#A9B6D6; --gold:#FFD98A; --warm:#FFC86B;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--night);color:var(--ink);font-family:'Work Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--gold)}
+button{font:inherit}
 .serif{font-family:'Cormorant Garamond',Georgia,serif}
 .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
 .eyebrow{margin:0;font-size:14px;font-weight:600;letter-spacing:.26em;color:var(--muted)}
-.btn{display:inline-block;padding:18px 34px;border-radius:999px;background:var(--gold);color:#0A0E1C;font-weight:700;font-size:18px;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 0 0 rgba(255,200,107,0)}
+.btn{display:inline-block;padding:18px 34px;border:0;border-radius:999px;background:var(--gold);color:#0A0E1C;font-weight:700;font-size:18px;text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(255,200,107,.35);color:#0A0E1C}
-.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line2)}
+.btn.ghost:hover{box-shadow:none;border-color:var(--gold)}
+:focus-visible{outline:3px solid #fff;outline-offset:3px}
 
 /* HERO */
-.hero{position:relative;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:12vh 20px 0}
+.hero{position:relative;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;padding:12vh 20px 0}
 #sky{position:absolute;inset:0;width:100%;height:100%}
 .hero-copy{position:relative;z-index:2;max-width:900px}
 .hero h1{margin:26px 0 0;font-weight:600;font-size:clamp(40px,7vw,80px);line-height:1.04}
 .hero h1 em{font-style:italic;font-weight:500;color:var(--gold)}
 .hero .sub{margin:14px 0 0;font-size:clamp(24px,3.4vw,38px);color:var(--soft)}
-.hero .btn{margin-top:36px}
+.hero .when{margin:22px 0 0;font-size:16px;font-weight:500;letter-spacing:.08em;color:var(--muted)}
+.hero .btn{margin-top:30px}
 .scene{position:absolute;left:0;right:0;bottom:0;z-index:1;pointer-events:none}
 .scene svg{display:block;width:100%;height:auto}
-.glow{animation:breathe 4.5s ease-in-out infinite;transform-origin:720px 618px}
-@keyframes breathe{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:.8;transform:scale(1.15)}}
+.glow{animation:breathe 4.5s ease-in-out infinite;transform-origin:720px 618px;transform-box:view-box}
+@keyframes breathe{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:.85;transform:scale(1.15)}}
 .scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:3;font-size:13px;letter-spacing:.2em;color:var(--muted);animation:float 2.4s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
 
-section{padding:100px 0}
+section{padding:110px 0}
 .center{text-align:center}
+.alt{background:var(--night2)}
+h2{margin:0;font-weight:600;font-size:clamp(32px,4.6vw,52px);line-height:1.12}
+h2 em{font-style:italic;font-weight:500;color:var(--gold)}
 .lead{max-width:760px;margin:0 auto}
-.lead h2{margin:0;font-weight:600;font-size:clamp(32px,4.6vw,50px);line-height:1.12}
 .lead p{margin:24px 0 0;font-size:20px;line-height:1.65;color:var(--soft)}
 
-.alt{background:var(--night2)}
-.chips{margin-top:34px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
-.chip{padding:13px 24px;border-radius:999px;background:var(--chip);font-size:18px;font-weight:500}
-.cards{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-.card{padding:32px 26px;border:1.5px solid var(--line);border-radius:22px;transition:border-color .3s,transform .3s}
-.card:hover{border-color:#3A4E8A;transform:translateY(-4px)}
-.card h3{margin:0;font-size:30px;font-weight:600;color:var(--gold)}
-.card p{margin:12px 0 0;font-size:18px;line-height:1.55;color:var(--soft)}
-.card .n{font-size:14px;font-weight:600;letter-spacing:.2em;color:var(--muted)}
+/* Preguntas que se encienden */
+.qs{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:44px}
+.q{font-size:clamp(28px,4vw,44px);line-height:1.2;font-weight:500;color:#2C3760;transition:color 1.2s ease}
+.q.lit{color:var(--ink)}
+.q.lit em{color:var(--gold)}
+.q em{font-style:italic;transition:color 1.2s ease}
 
-.people{margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
-.person{padding:36px 30px;background:var(--night2);border-radius:22px}
-.person h3{margin:0;font-size:32px;font-weight:600}
-.person .role{margin:6px 0 0;font-size:13px;font-weight:600;letter-spacing:.16em;color:var(--muted)}
-.person p{margin:16px 0 0;font-size:18px;line-height:1.6;color:var(--soft)}
+/* Pausa: respiración */
+.pause{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center}
+.pause p{font-size:20px;line-height:1.6;color:var(--soft)}
+.orb-wrap{position:relative;display:flex;align-items:center;justify-content:center;height:360px}
+.orb{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,#FFF1CC 0%,#FFC86B 45%,rgba(255,200,107,0) 72%);transform:scale(.8);transition:transform 4s ease-in-out,opacity 4s;opacity:.7}
+.orb.in{transform:scale(2.1);opacity:1}
+.orb.out{transform:scale(.8);opacity:.6;transition-duration:6s}
+.orb-ring{position:absolute;width:300px;height:300px;border-radius:50%;border:1.5px dashed var(--line)}
+.orb-label{position:absolute;bottom:0;left:0;right:0;text-align:center;font-size:22px;font-weight:500;letter-spacing:.06em;color:var(--ink);min-height:30px}
+.breath-btn{margin-top:28px}
+.after{margin-top:20px;font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;line-height:1.25;color:var(--ink);opacity:0;transition:opacity 1.2s}
+.after.show{opacity:1}
 
-.final h2{margin:0;font-weight:600;font-size:clamp(34px,5vw,56px);line-height:1.1}
-.final h2 em{font-style:italic;font-weight:500;color:var(--gold)}
-.details{margin-top:32px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
-.detail{padding:12px 22px;border:1.5px solid #3A4E8A;border-radius:999px;font-size:18px;color:#E6EBF6}
-.final .btn{margin-top:36px}
-.final small{display:block;margin-top:16px;font-size:15px;color:var(--muted)}
+/* Constelación: recorrido */
+.journey{position:relative;max-width:760px;margin:56px auto 0;padding-left:56px}
+.journey::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:1.5px;background:linear-gradient(var(--line),var(--line))}
+.journey .fill{position:absolute;left:15px;top:8px;width:1.5px;height:0;background:linear-gradient(var(--gold),var(--warm));transition:height .2s linear}
+.stop{position:relative;padding:0 0 52px}
+.stop:last-child{padding-bottom:0}
+.dot{position:absolute;left:-49px;top:6px;width:18px;height:18px;border-radius:50%;background:var(--night2);border:1.5px solid var(--line2);transition:all .6s}
+.stop.on .dot{background:var(--gold);border-color:var(--gold);box-shadow:0 0 22px 6px rgba(255,200,107,.45)}
+.stop .k{font-size:13px;font-weight:600;letter-spacing:.2em;color:var(--muted)}
+.stop h3{margin:8px 0 0;font-size:34px;font-weight:600}
+.stop p{margin:10px 0 0;font-size:18px;line-height:1.6;color:var(--soft);max-width:560px}
+
+/* Te llevás */
+.takes{margin-top:48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.take{padding:30px 26px;border:1.5px solid var(--line);border-radius:22px;transition:border-color .3s,transform .3s}
+.take:hover{border-color:var(--line2);transform:translateY(-4px)}
+.take h3{margin:0;font-size:28px;font-weight:600;color:var(--gold)}
+.take p{margin:10px 0 0;font-size:17px;line-height:1.55;color:var(--soft)}
+
+/* Elegí qué encender */
+.picks{margin:36px auto 0;max-width:820px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.pick{padding:14px 24px;border-radius:999px;border:1.5px solid var(--line2);background:transparent;color:var(--ink);font-size:18px;font-weight:500;cursor:pointer;transition:all .25s}
+.pick:hover{border-color:var(--gold)}
+.pick[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:#0A0E1C;box-shadow:0 0 26px rgba(255,200,107,.35)}
+.details{margin-top:40px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.detail{padding:12px 22px;border:1.5px solid var(--line2);border-radius:999px;font-size:18px;color:#E6EBF6}
+.final .btn{margin-top:34px}
+.final small{display:block;margin-top:14px;font-size:15px;color:var(--muted)}
 
 footer{padding:36px 20px 110px;text-align:center}
 footer p{margin:0;font-size:13px;font-weight:500;letter-spacing:.2em;color:#8FA0C8}
@@ -83,6 +115,7 @@ footer p{margin:0;font-size:13px;font-weight:500;letter-spacing:.2em;color:#8FA0
 @media (prefers-reduced-motion:reduce){
   .glow,.scroll-hint{animation:none}
   .reveal{opacity:1;transform:none;transition:none}
+  .q{color:var(--ink)}
   html{scroll-behavior:auto}
 }
 </style>
@@ -95,6 +128,7 @@ footer p{margin:0;font-size:13px;font-weight:500;letter-spacing:.2em;color:#8FA0
     <p class="eyebrow">TALLER PRESENCIAL · LOMAS DEL MIRADOR</p>
     <h1 class="serif">Sabés en tu corazón que estás acá para <em>algo más</em></h1>
     <p class="sub serif">que trabajar y pagar cuentas.</p>
+    <p class="when" data-fill="fecha"></p>
     <a class="btn" href="#reservar">Quiero mi lugar</a>
   </div>
   <div class="scene">
@@ -116,72 +150,106 @@ footer p{margin:0;font-size:13px;font-weight:500;letter-spacing:.2em;color:#8FA0
       </g>
     </svg>
   </div>
-  <span class="scroll-hint" aria-hidden="true">BAJÁ ↓</span>
+  <span class="scroll-hint" aria-hidden="true">BAJÁ DESPACIO ↓</span>
 </header>
 
 <main>
+
+<!-- Preguntas que se encienden al bajar -->
 <section>
-  <div class="wrap lead center reveal">
-    <h2 class="serif">¿Te preguntaste qué cosas te hacen vibrar el alma?</h2>
-    <p>¿Cuántas veces hacés cosas en automático o porque no te queda otra? ¿Le dedicás tiempo a escucharte? El ritmo de la vida no siempre nos deja. Por eso te invitamos a frenar un rato y regalarte una jornada para volver a vos.</p>
-    <p>Vamos a bajar el ruido, escucharnos y animarnos a imaginar lo que deseamos, sin presiones. Todo en un espacio lleno de amor, presencia y abundancia.</p>
+  <div class="wrap">
+    <div class="qs serif">
+      <p class="q">¿Te preguntaste qué cosas te hacen <em>vibrar el alma</em>?</p>
+      <p class="q">¿Cuántas veces hacés cosas <em>en automático</em>, o porque no te queda otra?</p>
+      <p class="q">¿Hace cuánto no te frenás a <em>escucharte</em>?</p>
+    </div>
   </div>
 </section>
 
+<!-- Pausa interactiva -->
+<section class="alt">
+  <div class="wrap pause">
+    <div class="reveal">
+      <p class="eyebrow">ANTES DE SEGUIR</p>
+      <h2 class="serif" style="margin-top:18px">Regalate <em>30 segundos</em>.</h2>
+      <p>El ritmo de la vida casi nunca nos deja frenar. Probalo ahora: tres respiraciones, siguiendo la luz.</p>
+      <button class="btn breath-btn" id="breathBtn" type="button">Respirar conmigo</button>
+      <p class="after" id="after" aria-live="polite">Eso que sentiste es apenas el comienzo.<br>Imaginá una tarde entera así.</p>
+    </div>
+    <div class="orb-wrap reveal" aria-hidden="true">
+      <div class="orb-ring"></div>
+      <div class="orb" id="orb"></div>
+      <div class="orb-label" id="orbLabel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Recorrido como constelación -->
+<section>
+  <div class="wrap">
+    <div class="center reveal">
+      <p class="eyebrow">EL RECORRIDO DE LA TARDE</p>
+      <h2 class="serif" style="margin-top:18px">Una jornada para <em>volver a vos</em></h2>
+    </div>
+    <div class="journey" id="journey">
+      <span class="fill" id="fill"></span>
+      <div class="stop"><span class="dot"></span><span class="k">01 · LLEGAR</span><h3 class="serif">Meditación</h3><p>Bajamos el ruido. Dejamos afuera la semana y llegamos al cuerpo.</p></div>
+      <div class="stop"><span class="dot"></span><span class="k">02 · SOLTAR</span><h3 class="serif">Viaje sonoro</h3><p>Cuencos y sonidos que te llevan a un estado de calma profunda.</p></div>
+      <div class="stop"><span class="dot"></span><span class="k">03 · AFLOJAR</span><h3 class="serif">Relajación</h3><p>Un rato para que el cuerpo descanse de verdad y suelte el estrés.</p></div>
+      <div class="stop"><span class="dot"></span><span class="k">04 · PREGUNTARTE</span><h3 class="serif">Trabajo de indagación</h3><p>Ejercicios para escuchar qué te enciende, qué dejaste en pausa y qué futuro deseás.</p></div>
+      <div class="stop"><span class="dot"></span><span class="k">05 · COMPARTIR</span><h3 class="serif">Ronda de compartir</h3><p>Encontrarte con otras personas que también sienten que hay algo más.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Qué te llevás -->
 <section class="alt">
   <div class="wrap">
-    <p class="eyebrow center reveal">QUÉ VAMOS A VIVIR</p>
-    <div class="chips reveal">
-      <span class="chip">Meditación</span>
-      <span class="chip">Viaje sonoro</span>
-      <span class="chip">Relajación</span>
-      <span class="chip">Trabajo de indagación</span>
-      <span class="chip">Ronda de compartir</span>
+    <div class="center reveal">
+      <p class="eyebrow">QUÉ TE LLEVÁS</p>
+      <h2 class="serif" style="margin-top:18px">No es una charla. <em>Es una experiencia.</em></h2>
     </div>
-    <div class="cards">
-      <article class="card reveal"><span class="n">01</span><h3 class="serif">Frenar y aflojar</h3><p>Soltar el estrés y la ansiedad, y volver al cuerpo.</p></article>
-      <article class="card reveal"><span class="n">02</span><h3 class="serif">Escucharte</h3><p>Reconectar con lo que te enciende y con eso que dejaste en pausa.</p></article>
-      <article class="card reveal"><span class="n">03</span><h3 class="serif">Compartir</h3><p>Encontrarte con otras personas que también sienten que hay algo más.</p></article>
-      <article class="card reveal"><span class="n">04</span><h3 class="serif">Ensayar tu futuro</h3><p>Proyectar lo que deseás y llevarte un primer paso concreto, y una semilla para plantar.</p></article>
+    <div class="takes">
+      <article class="take reveal"><h3 class="serif">Calma</h3><p>Herramientas simples para bajar la ansiedad en tu día a día.</p></article>
+      <article class="take reveal"><h3 class="serif">Claridad</h3><p>Una mirada más honesta sobre lo que te enciende y lo que querés.</p></article>
+      <article class="take reveal"><h3 class="serif">Un primer paso</h3><p>Un gesto concreto para empezar a moverte hacia ese algo más.</p></article>
+      <article class="take reveal"><h3 class="serif">Una semilla</h3><p>Real, para plantar. Para que cada vez que la mires te acuerdes.</p></article>
     </div>
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <p class="eyebrow center reveal">QUIÉNES TE ACOMPAÑAN</p>
-    <div class="people">
-      <article class="person reveal">
-        <h3 class="serif">Juanma Gaitán</h3>
-        <p class="role">JARDÍN DE GENTE</p>
-        <p>Coach. [Contá en dos líneas quién sos y por qué hacés este encuentro.]</p>
-      </article>
-      <article class="person reveal">
-        <h3 class="serif">Ceci González</h3>
-        <p class="role">CG MASAJES Y REIKI</p>
-        <p>Masajista y reikista. Junto a su equipo cuida el cuerpo y el descanso de quienes llegan a CG. [Completar con Ceci.]</p>
-      </article>
+<!-- Reserva interactiva -->
+<section id="reservar" class="final">
+  <div class="wrap center">
+    <div class="reveal">
+      <p class="eyebrow">TU LUGAR</p>
+      <h2 class="serif" style="margin-top:18px">¿Qué te gustaría <em>encender</em>?</h2>
+      <p style="margin:18px auto 0;max-width:560px;font-size:18px;line-height:1.6;color:var(--soft)">Elegí una o varias. Se suman a tu mensaje de reserva, así llegamos sabiendo qué venís a buscar.</p>
     </div>
-  </div>
-</section>
-
-<section id="reservar" class="alt final">
-  <div class="wrap center reveal">
-    <h2 class="serif">Regalate este rato para <em>volver a vos</em></h2>
-    <div class="details">
+    <div class="picks reveal" role="group" aria-label="Qué te gustaría encender">
+      <button class="pick" type="button" aria-pressed="false">Descansar de verdad</button>
+      <button class="pick" type="button" aria-pressed="false">Escucharme</button>
+      <button class="pick" type="button" aria-pressed="false">Bajar la ansiedad</button>
+      <button class="pick" type="button" aria-pressed="false">Encontrar sentido</button>
+      <button class="pick" type="button" aria-pressed="false">Conocer gente</button>
+      <button class="pick" type="button" aria-pressed="false">Animarme a un cambio</button>
+    </div>
+    <div class="details reveal">
       <span class="detail" data-fill="fecha"></span>
       <span class="detail">Lomas del Mirador</span>
       <span class="detail" data-fill="precio"></span>
     </div>
-    <a class="btn js-wa" href="#">Reservar por WhatsApp</a>
-    <small>Te respondemos con todos los detalles.</small>
+    <div class="reveal">
+      <a class="btn js-wa" href="#">Reservar por WhatsApp</a>
+      <small>Cupos reducidos para que cada persona tenga su espacio.</small>
+    </div>
   </div>
 </section>
 </main>
 
 <footer><p>JARDÍN DE GENTE × CG MASAJES Y REIKI</p></footer>
 
-<div class="sticky" id="sticky"><a class="btn js-wa" href="#">Reservar mi lugar</a></div>
+<div class="sticky" id="sticky"><a class="btn" href="#reservar">Reservar mi lugar</a></div>
 
 <script>
 /* ==== EDITÁ ACÁ ==== */
@@ -193,25 +261,61 @@ const DATOS = {
 };
 /* =================== */
 
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.querySelectorAll('[data-fill]').forEach(el => { el.textContent = DATOS[el.dataset.fill]; });
-const wa = 'https://wa.me/' + DATOS.whatsapp + '?text=' + encodeURIComponent(DATOS.mensaje);
-document.querySelectorAll('.js-wa').forEach(a => { a.href = wa; a.target = '_blank'; a.rel = 'noopener'; });
+
+// WhatsApp con lo elegido
+const picks = [...document.querySelectorAll('.pick')];
+function waLink() {
+  const sel = picks.filter(p => p.getAttribute('aria-pressed') === 'true').map(p => p.textContent.toLowerCase());
+  let msg = DATOS.mensaje;
+  if (sel.length) msg += '. Me gustaría ' + (sel.length > 1 ? sel.slice(0, -1).join(', ') + ' y ' + sel.at(-1) : sel[0]) + '.';
+  return 'https://wa.me/' + DATOS.whatsapp + '?text=' + encodeURIComponent(msg);
+}
+function updateWa() { document.querySelectorAll('.js-wa').forEach(a => { a.href = waLink(); a.target = '_blank'; a.rel = 'noopener'; }); }
+picks.forEach(p => p.addEventListener('click', () => { p.setAttribute('aria-pressed', p.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); updateWa(); }));
+updateWa();
 
 // Aparecer al scrollear
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-// Botón fijo: aparece después de la portada y se esconde en la sección de reserva
-const sticky = document.getElementById('sticky');
-const hero = document.querySelector('.hero');
-const reservar = document.getElementById('reservar');
+// Preguntas que se encienden
+const qo = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('lit', e.isIntersecting)), { rootMargin: '-35% 0px -35% 0px' });
+document.querySelectorAll('.q').forEach(q => qo.observe(q));
+
+// Constelación que se completa al bajar
+const journey = document.getElementById('journey'), fill = document.getElementById('fill'), stops = [...journey.querySelectorAll('.stop')];
+function onScroll() {
+  const r = journey.getBoundingClientRect(), mid = innerHeight * .6;
+  const h = Math.max(0, Math.min(r.height - 16, mid - r.top));
+  fill.style.height = h + 'px';
+  stops.forEach(s => s.classList.toggle('on', s.getBoundingClientRect().top + 14 < mid));
+}
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+// Respiración guiada
+const orb = document.getElementById('orb'), label = document.getElementById('orbLabel'), btn = document.getElementById('breathBtn'), after = document.getElementById('after');
+const wait = ms => new Promise(r => setTimeout(r, ms));
+btn.addEventListener('click', async () => {
+  btn.disabled = true; btn.textContent = 'Respirando…'; after.classList.remove('show');
+  for (let i = 1; i <= 3; i++) {
+    orb.className = 'orb in'; label.textContent = 'Inhalá… ' + i + '/3'; await wait(4000);
+    label.textContent = 'Sostené'; await wait(1500);
+    orb.className = 'orb out'; label.textContent = 'Exhalá…'; await wait(6000);
+  }
+  orb.className = 'orb'; label.textContent = '';
+  after.classList.add('show'); btn.disabled = false; btn.textContent = 'Otra vez';
+});
+
+// Botón fijo
+const sticky = document.getElementById('sticky'), hero = document.querySelector('.hero'), reservar = document.getElementById('reservar');
 let pastHero = false, atBooking = false;
 const upd = () => sticky.classList.toggle('show', pastHero && !atBooking);
 new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; upd(); }).observe(hero);
-new IntersectionObserver(([e]) => { atBooking = e.isIntersecting; upd(); }, { threshold: .2 }).observe(reservar);
+new IntersectionObserver(([e]) => { atBooking = e.isIntersecting; upd(); }, { threshold: .15 }).observe(reservar);
 
 // Cielo estrellado
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const cv = document.getElementById('sky'), ctx = cv.getContext('2d');
 let W, H, stars = [], shooting = null;
 function size() {
@@ -228,9 +332,8 @@ function size() {
 function draw(t) {
   ctx.clearRect(0, 0, W, H);
   for (const s of stars) {
-    const o = reduce ? s.a : s.a * (.55 + .45 * Math.sin(t / 1000 * s.s + s.p));
-    ctx.globalAlpha = o; ctx.fillStyle = '#fff';
-    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.28); ctx.fill();
+    ctx.globalAlpha = reduce ? s.a : s.a * (.55 + .45 * Math.sin(t / 1000 * s.s + s.p));
+    ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.28); ctx.fill();
   }
   if (!reduce) {
     if (!shooting && Math.random() < .004) shooting = { x: Math.random() * W * .7, y: Math.random() * H * .35, l: 0 };
@@ -247,8 +350,7 @@ function draw(t) {
   }
   ctx.globalAlpha = 1;
 }
-size(); addEventListener('resize', size);
-requestAnimationFrame(draw);
+size(); addEventListener('resize', size); requestAnimationFrame(draw);
 </script>
 </body>
 </html>
