@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algo más · Taller presencial en Lomas del Mirador</title>
+<meta name="description" content="Sabés en tu corazón que estás acá para algo más que trabajar y pagar cuentas. Una jornada de meditación, viaje sonoro, relajación, indagación y ronda de compartir.">
+<meta property="og:title" content="Algo más · Taller presencial">
+<meta property="og:description" content="Sabés en tu corazón que estás acá para algo más que trabajar y pagar cuentas.">
+<meta name="theme-color" content="#04060D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --night:#04060D; --night2:#0A1022; --chip:#17213F; --line:#24305A;
+  --ink:#F7F5EF; --soft:#C9D3EA; --muted:#A9B6D6; --gold:#FFD98A; --warm:#FFC86B;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--night);color:var(--ink);font-family:'Work Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--gold)}
+.serif{font-family:'Cormorant Garamond',Georgia,serif}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.eyebrow{margin:0;font-size:14px;font-weight:600;letter-spacing:.26em;color:var(--muted)}
+.btn{display:inline-block;padding:18px 34px;border-radius:999px;background:var(--gold);color:#0A0E1C;font-weight:700;font-size:18px;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 0 0 rgba(255,200,107,0)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(255,200,107,.35);color:#0A0E1C}
+.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+/* HERO */
+.hero{position:relative;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:12vh 20px 0}
+#sky{position:absolute;inset:0;width:100%;height:100%}
+.hero-copy{position:relative;z-index:2;max-width:900px}
+.hero h1{margin:26px 0 0;font-weight:600;font-size:clamp(40px,7vw,80px);line-height:1.04}
+.hero h1 em{font-style:italic;font-weight:500;color:var(--gold)}
+.hero .sub{margin:14px 0 0;font-size:clamp(24px,3.4vw,38px);color:var(--soft)}
+.hero .btn{margin-top:36px}
+.scene{position:absolute;left:0;right:0;bottom:0;z-index:1;pointer-events:none}
+.scene svg{display:block;width:100%;height:auto}
+.glow{animation:breathe 4.5s ease-in-out infinite;transform-origin:720px 618px}
+@keyframes breathe{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:.8;transform:scale(1.15)}}
+.scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:3;font-size:13px;letter-spacing:.2em;color:var(--muted);animation:float 2.4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
+
+section{padding:100px 0}
+.center{text-align:center}
+.lead{max-width:760px;margin:0 auto}
+.lead h2{margin:0;font-weight:600;font-size:clamp(32px,4.6vw,50px);line-height:1.12}
+.lead p{margin:24px 0 0;font-size:20px;line-height:1.65;color:var(--soft)}
+
+.alt{background:var(--night2)}
+.chips{margin-top:34px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.chip{padding:13px 24px;border-radius:999px;background:var(--chip);font-size:18px;font-weight:500}
+.cards{margin-top:56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.card{padding:32px 26px;border:1.5px solid var(--line);border-radius:22px;transition:border-color .3s,transform .3s}
+.card:hover{border-color:#3A4E8A;transform:translateY(-4px)}
+.card h3{margin:0;font-size:30px;font-weight:600;color:var(--gold)}
+.card p{margin:12px 0 0;font-size:18px;line-height:1.55;color:var(--soft)}
+.card .n{font-size:14px;font-weight:600;letter-spacing:.2em;color:var(--muted)}
+
+.people{margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+.person{padding:36px 30px;background:var(--night2);border-radius:22px}
+.person h3{margin:0;font-size:32px;font-weight:600}
+.person .role{margin:6px 0 0;font-size:13px;font-weight:600;letter-spacing:.16em;color:var(--muted)}
+.person p{margin:16px 0 0;font-size:18px;line-height:1.6;color:var(--soft)}
+
+.final h2{margin:0;font-weight:600;font-size:clamp(34px,5vw,56px);line-height:1.1}
+.final h2 em{font-style:italic;font-weight:500;color:var(--gold)}
+.details{margin-top:32px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.detail{padding:12px 22px;border:1.5px solid #3A4E8A;border-radius:999px;font-size:18px;color:#E6EBF6}
+.final .btn{margin-top:36px}
+.final small{display:block;margin-top:16px;font-size:15px;color:var(--muted)}
+
+footer{padding:36px 20px 110px;text-align:center}
+footer p{margin:0;font-size:13px;font-weight:500;letter-spacing:.2em;color:#8FA0C8}
+
+.sticky{position:fixed;left:16px;right:16px;bottom:16px;z-index:10;text-align:center;opacity:0;transform:translateY(20px);transition:opacity .3s,transform .3s;pointer-events:none}
+.sticky.show{opacity:1;transform:none;pointer-events:auto}
+.sticky .btn{width:100%;max-width:420px;padding:16px 24px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .glow,.scroll-hint{animation:none}
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="hero-copy">
+    <p class="eyebrow">TALLER PRESENCIAL · LOMAS DEL MIRADOR</p>
+    <h1 class="serif">Sabés en tu corazón que estás acá para <em>algo más</em></h1>
+    <p class="sub serif">que trabajar y pagar cuentas.</p>
+    <a class="btn" href="#reservar">Quiero mi lugar</a>
+  </div>
+  <div class="scene">
+    <svg viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Una persona de espaldas sobre una loma mira el cielo, con una luz cálida en el pecho">
+      <defs>
+        <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="40"/></filter>
+        <filter id="halo" x="-200%" y="-200%" width="500%" height="500%"><feGaussianBlur stdDeviation="18"/></filter>
+      </defs>
+      <g transform="translate(0,-480)">
+        <ellipse cx="720" cy="700" rx="700" ry="130" fill="#1C2D63" opacity=".7" filter="url(#soft)"/>
+        <path d="M0 730 C400 680 1040 670 1440 725 L1440 780 L0 780 Z" fill="#010205"/>
+        <circle class="glow" cx="720" cy="618" r="46" fill="#FFC86B" filter="url(#halo)"/>
+        <g fill="#010205">
+          <ellipse cx="720" cy="566" rx="17" ry="19" transform="rotate(-12 720 566)"/>
+          <path d="M712 580 L728 580 L729 594 L711 594 Z"/>
+          <path d="M694 604 C697 592 743 592 746 604 L751 664 C751 668 747 669 745 666 L740 632 L737 674 L735 704 L725 704 L721 676 L719 704 L709 704 L705 674 L701 632 L696 666 C694 669 690 668 690 664 Z"/>
+        </g>
+        <circle cx="720" cy="618" r="3.5" fill="#FFE6B0"/>
+      </g>
+    </svg>
+  </div>
+  <span class="scroll-hint" aria-hidden="true">BAJÁ ↓</span>
+</header>
+
+<main>
+<section>
+  <div class="wrap lead center reveal">
+    <h2 class="serif">¿Te preguntaste qué cosas te hacen vibrar el alma?</h2>
+    <p>¿Cuántas veces hacés cosas en automático o porque no te queda otra? ¿Le dedicás tiempo a escucharte? El ritmo de la vida no siempre nos deja. Por eso te invitamos a frenar un rato y regalarte una jornada para volver a vos.</p>
+    <p>Vamos a bajar el ruido, escucharnos y animarnos a imaginar lo que deseamos, sin presiones. Todo en un espacio lleno de amor, presencia y abundancia.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <p class="eyebrow center reveal">QUÉ VAMOS A VIVIR</p>
+    <div class="chips reveal">
+      <span class="chip">Meditación</span>
+      <span class="chip">Viaje sonoro</span>
+      <span class="chip">Relajación</span>
+      <span class="chip">Trabajo de indagación</span>
+      <span class="chip">Ronda de compartir</span>
+    </div>
+    <div class="cards">
+      <article class="card reveal"><span class="n">01</span><h3 class="serif">Frenar y aflojar</h3><p>Soltar el estrés y la ansiedad, y volver al cuerpo.</p></article>
+      <article class="card reveal"><span class="n">02</span><h3 class="serif">Escucharte</h3><p>Reconectar con lo que te enciende y con eso que dejaste en pausa.</p></article>
+      <article class="card reveal"><span class="n">03</span><h3 class="serif">Compartir</h3><p>Encontrarte con otras personas que también sienten que hay algo más.</p></article>
+      <article class="card reveal"><span class="n">04</span><h3 class="serif">Ensayar tu futuro</h3><p>Proyectar lo que deseás y llevarte un primer paso concreto, y una semilla para plantar.</p></article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow center reveal">QUIÉNES TE ACOMPAÑAN</p>
+    <div class="people">
+      <article class="person reveal">
+        <h3 class="serif">Juanma Gaitán</h3>
+        <p class="role">JARDÍN DE GENTE</p>
+        <p>Coach. [Contá en dos líneas quién sos y por qué hacés este encuentro.]</p>
+      </article>
+      <article class="person reveal">
+        <h3 class="serif">Ceci González</h3>
+        <p class="role">CG MASAJES Y REIKI</p>
+        <p>Masajista y reikista. Junto a su equipo cuida el cuerpo y el descanso de quienes llegan a CG. [Completar con Ceci.]</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="reservar" class="alt final">
+  <div class="wrap center reveal">
+    <h2 class="serif">Regalate este rato para <em>volver a vos</em></h2>
+    <div class="details">
+      <span class="detail" data-fill="fecha"></span>
+      <span class="detail">Lomas del Mirador</span>
+      <span class="detail" data-fill="precio"></span>
+    </div>
+    <a class="btn js-wa" href="#">Reservar por WhatsApp</a>
+    <small>Te respondemos con todos los detalles.</small>
+  </div>
+</section>
+</main>
+
+<footer><p>JARDÍN DE GENTE × CG MASAJES Y REIKI</p></footer>
+
+<div class="sticky" id="sticky"><a class="btn js-wa" href="#">Reservar mi lugar</a></div>
+
+<script>
+/* ==== EDITÁ ACÁ ==== */
+const DATOS = {
+  whatsapp: "5491100000000",            // número con código de país, sin + ni espacios
+  mensaje:  "Hola! Quiero reservar mi lugar en el taller Algo más",
+  fecha:    "[FECHA] · [HORA] a [HORA]",
+  precio:   "Cupo limitado · $[PRECIO]"
+};
+/* =================== */
+
+document.querySelectorAll('[data-fill]').forEach(el => { el.textContent = DATOS[el.dataset.fill]; });
+const wa = 'https://wa.me/' + DATOS.whatsapp + '?text=' + encodeURIComponent(DATOS.mensaje);
+document.querySelectorAll('.js-wa').forEach(a => { a.href = wa; a.target = '_blank'; a.rel = 'noopener'; });
+
+// Aparecer al scrollear
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Botón fijo: aparece después de la portada y se esconde en la sección de reserva
+const sticky = document.getElementById('sticky');
+const hero = document.querySelector('.hero');
+const reservar = document.getElementById('reservar');
+let pastHero = false, atBooking = false;
+const upd = () => sticky.classList.toggle('show', pastHero && !atBooking);
+new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; upd(); }).observe(hero);
+new IntersectionObserver(([e]) => { atBooking = e.isIntersecting; upd(); }, { threshold: .2 }).observe(reservar);
+
+// Cielo estrellado
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cv = document.getElementById('sky'), ctx = cv.getContext('2d');
+let W, H, stars = [], shooting = null;
+function size() {
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  W = cv.clientWidth; H = cv.clientHeight;
+  cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const n = Math.round(W * H / 4500);
+  stars = Array.from({ length: n }, () => ({
+    x: Math.random() * W, y: Math.random() * H * .88,
+    r: Math.random() < .08 ? 1.6 + Math.random() : .4 + Math.random() * .9,
+    a: .3 + Math.random() * .7, s: .5 + Math.random() * 2, p: Math.random() * 6.28
+  }));
+}
+function draw(t) {
+  ctx.clearRect(0, 0, W, H);
+  for (const s of stars) {
+    const o = reduce ? s.a : s.a * (.55 + .45 * Math.sin(t / 1000 * s.s + s.p));
+    ctx.globalAlpha = o; ctx.fillStyle = '#fff';
+    ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.28); ctx.fill();
+  }
+  if (!reduce) {
+    if (!shooting && Math.random() < .004) shooting = { x: Math.random() * W * .7, y: Math.random() * H * .35, l: 0 };
+    if (shooting) {
+      shooting.l += 14;
+      const x = shooting.x + shooting.l, y = shooting.y + shooting.l * .45;
+      const g = ctx.createLinearGradient(x, y, x - 120, y - 54);
+      g.addColorStop(0, 'rgba(255,255,255,.9)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.globalAlpha = 1; ctx.strokeStyle = g; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - 120, y - 54); ctx.stroke();
+      if (shooting.l > 420) shooting = null;
+    }
+    requestAnimationFrame(draw);
+  }
+  ctx.globalAlpha = 1;
+}
+size(); addEventListener('resize', size);
+requestAnimationFrame(draw);
+</script>
+</body>
+</html>
