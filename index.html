@@ -106,6 +106,22 @@ h2 em{font-style:italic;font-weight:500;color:var(--gold)}
 footer{padding:36px 20px 110px;text-align:center}
 footer p{margin:0;font-size:13px;font-weight:500;letter-spacing:.2em;color:#8FA0C8}
 
+.price{margin-top:30px;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:10px 18px}
+.price-old{font-size:24px;color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,217,138,.8)}
+.price-new{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(54px,8vw,76px);font-weight:600;line-height:1;color:var(--gold)}
+.price-tag{flex-basis:100%;font-size:13px;font-weight:600;letter-spacing:.22em;color:var(--muted)}
+
+.sound{position:fixed;top:16px;right:16px;z-index:20;display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;border:1.5px solid var(--line2);background:rgba(4,6,13,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--ink);font-size:14px;font-weight:600;cursor:pointer;transition:border-color .3s}
+.sound:hover,.sound[aria-pressed="true"]{border-color:var(--gold)}
+.bars{display:flex;align-items:flex-end;gap:3px;height:14px}
+.bars i{display:block;width:3px;height:4px;border-radius:2px;background:var(--gold)}
+.sound[aria-pressed="true"] .bars i{animation:eq 1.2s ease-in-out infinite}
+.sound[aria-pressed="true"] .bars i:nth-child(2){animation-delay:.3s}
+.sound[aria-pressed="true"] .bars i:nth-child(3){animation-delay:.6s}
+.sound[aria-pressed="true"] .bars i:nth-child(4){animation-delay:.15s}
+@keyframes eq{0%,100%{height:4px}50%{height:14px}}
+@media (max-width:520px){.sound-txt{display:none}.sound{padding:12px}}
+
 .sticky{position:fixed;left:16px;right:16px;bottom:16px;z-index:10;text-align:center;opacity:0;transform:translateY(20px);transition:opacity .3s,transform .3s;pointer-events:none}
 .sticky.show{opacity:1;transform:none;pointer-events:auto}
 .sticky .btn{width:100%;max-width:420px;padding:16px 24px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
@@ -237,7 +253,12 @@ footer p{margin:0;font-size:13px;font-weight:500;letter-spacing:.2em;color:#8FA0
     <div class="details reveal">
       <span class="detail" data-fill="fecha"></span>
       <span class="detail">Lomas del Mirador</span>
-      <span class="detail" data-fill="precio"></span>
+      <span class="detail">Cupo limitado</span>
+    </div>
+    <div class="price reveal">
+      <span class="price-old">$<span data-fill="precioLista"></span></span>
+      <span class="price-new">$<span data-fill="precioPromo"></span></span>
+      <span class="price-tag">PRECIO PROMOCIONAL</span>
     </div>
     <div class="reveal">
       <a class="btn js-wa" href="#">Reservar por WhatsApp</a>
@@ -249,7 +270,12 @@ footer p{margin:0;font-size:13px;font-weight:500;letter-spacing:.2em;color:#8FA0
 
 <footer><p>JARDÍN DE GENTE × CG MASAJES Y REIKI</p></footer>
 
-<div class="sticky" id="sticky"><a class="btn" href="#reservar">Reservar mi lugar</a></div>
+<div class="sticky" id="sticky"><a class="btn" href="#reservar">Reservar mi lugar · $<span data-fill="precioPromo"></span></a></div>
+
+<button class="sound" id="sound" type="button" aria-pressed="false" aria-label="Activar música">
+  <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+  <span class="sound-txt">Activar música</span>
+</button>
 
 <script>
 /* ==== EDITÁ ACÁ ==== */
@@ -257,7 +283,8 @@ const DATOS = {
   whatsapp: "5491151325175",            // número con código de país, sin + ni espacios
   mensaje:  "Hola! Quiero reservar mi lugar en el taller Algo más",
   fecha:    "Domingo 15 de noviembre · 17 h",
-  precio:   "Cupo limitado · $[PRECIO]"
+  precioLista: "40.000",
+  precioPromo: "20.000"
 };
 /* =================== */
 
@@ -300,7 +327,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 btn.addEventListener('click', async () => {
   btn.disabled = true; btn.textContent = 'Respirando…'; after.classList.remove('show');
   for (let i = 1; i <= 3; i++) {
-    orb.className = 'orb in'; label.textContent = 'Inhalá… ' + i + '/3'; await wait(4000);
+    orb.className = 'orb in'; label.textContent = 'Inhalá… ' + i + '/3'; Sound.bowl([196, 261.63, 329.63][i - 1]); await wait(4000);
     label.textContent = 'Sostené'; await wait(1500);
     orb.className = 'orb out'; label.textContent = 'Exhalá…'; await wait(6000);
   }
@@ -314,6 +341,70 @@ let pastHero = false, atBooking = false;
 const upd = () => sticky.classList.toggle('show', pastHero && !atBooking);
 new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; upd(); }).observe(hero);
 new IntersectionObserver(([e]) => { atBooking = e.isIntersecting; upd(); }, { threshold: .15 }).observe(reservar);
+
+// Música ambiente generada en el navegador (sin archivos ni derechos de terceros)
+const Sound = (() => {
+  let ac, master, bowlTimer, on = false;
+  const notes = [196.00, 220.00, 261.63, 293.66, 329.63, 392.00]; // pentatónica en Sol
+  function init() {
+    ac = new (window.AudioContext || window.webkitAudioContext)();
+    master = ac.createGain(); master.gain.value = 0; master.connect(ac.destination);
+    // Reverb simple
+    const len = ac.sampleRate * 4, imp = ac.createBuffer(2, len, ac.sampleRate);
+    for (let c = 0; c < 2; c++) { const d = imp.getChannelData(c); for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3); }
+    const verb = ac.createConvolver(); verb.buffer = imp;
+    const wet = ac.createGain(); wet.gain.value = .55; verb.connect(wet); wet.connect(master);
+    Sound.bus = ac.createGain(); Sound.bus.connect(master); Sound.bus.connect(verb);
+    // Colchón grave (drone)
+    const lp = ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 600; lp.connect(Sound.bus);
+    [[98, 0], [98, 4], [147, -3], [196, 2]].forEach(([f, det], i) => {
+      const o = ac.createOscillator(), g = ac.createGain();
+      o.type = i < 2 ? 'sine' : 'triangle'; o.frequency.value = f; o.detune.value = det;
+      g.gain.value = i < 2 ? .09 : .025;
+      const lfo = ac.createOscillator(), lg = ac.createGain();
+      lfo.frequency.value = .05 + i * .03; lg.gain.value = g.gain.value * .6;
+      lfo.connect(lg); lg.connect(g.gain); lfo.start();
+      o.connect(g); g.connect(lp); o.start();
+    });
+    // Viento suave
+    const nb = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate), nd = nb.getChannelData(0);
+    for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+    const ns = ac.createBufferSource(); ns.buffer = nb; ns.loop = true;
+    const bp = ac.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 500; bp.Q.value = .6;
+    const ng = ac.createGain(); ng.gain.value = .012;
+    ns.connect(bp); bp.connect(ng); ng.connect(master); ns.start();
+  }
+  function bowl(freq) {
+    if (!ac || !on) return;
+    const f = freq || notes[Math.floor(Math.random() * notes.length)], t = ac.currentTime;
+    [[1, .18], [2.76, .06], [5.4, .025]].forEach(([m, v]) => {
+      const o = ac.createOscillator(), g = ac.createGain();
+      o.type = 'sine'; o.frequency.value = f * m;
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(v, t + .02);
+      g.gain.exponentialRampToValueAtTime(.0001, t + 7 / m + 2);
+      o.connect(g); g.connect(Sound.bus); o.start(t); o.stop(t + 10);
+    });
+  }
+  function loop() { bowl(); bowlTimer = setTimeout(loop, 7000 + Math.random() * 6000); }
+  function toggle() {
+    if (!ac) init();
+    on = !on;
+    const t = ac.currentTime;
+    master.gain.cancelScheduledValues(t);
+    master.gain.setValueAtTime(master.gain.value, t);
+    if (on) { ac.resume(); master.gain.linearRampToValueAtTime(.9, t + 3); setTimeout(() => bowl(196), 600); bowlTimer = setTimeout(loop, 5000); }
+    else { master.gain.linearRampToValueAtTime(0, t + 1.5); clearTimeout(bowlTimer); }
+    return on;
+  }
+  return { toggle, bowl, get on() { return on; } };
+})();
+const soundBtn = document.getElementById('sound');
+soundBtn.addEventListener('click', () => {
+  const on = Sound.toggle();
+  soundBtn.setAttribute('aria-pressed', on);
+  soundBtn.setAttribute('aria-label', on ? 'Pausar música' : 'Activar música');
+  soundBtn.querySelector('.sound-txt').textContent = on ? 'Música' : 'Activar música';
+});
 
 // Cielo estrellado
 const cv = document.getElementById('sky'), ctx = cv.getContext('2d');
